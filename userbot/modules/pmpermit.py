@@ -44,11 +44,10 @@ async def permitpm(e):
                 if COUNT_PM[e.chat_id] > 4:
                     await e.respond(
                         "`You were spamming my Master's PM, which I don't like.`"
-                        "`I'mma Report Spam.`"
+                        "`I'mma Report Soon™.`"
                     )
                     del COUNT_PM[e.chat_id]
                     await bot(BlockRequest(e.chat_id))
-                    await bot(ReportSpamRequest(peer=e.chat_id))
                     if LOGGER:
                         name = await bot.get_entity(e.chat_id)
                         name0 = str(name.first_name)
@@ -109,6 +108,38 @@ async def approvepm(apprvpm):
                 LOGGER_GROUP,
                 f"[{name0}](tg://user?id={apprvpm.chat_id})"
                 " was approved to PM you.",
+            )
+
+@bot.on(events.NewMessage(outgoing=True, pattern="^.disapprove$"))
+@bot.on(events.MessageEdited(outgoing=True, pattern="^.disapprove$"))
+async def disapprovepm(disapprvpm):
+    if not disapprvpm.text[0].isalpha() and disapprvpm.text[0] not in ("/", "#", "@", "!"):
+        try:
+            from userbot.modules.sql_helper.pm_permit_sql import dissprove
+        except:
+            await disapprvpm.edit("`Running on Non-SQL mode!`")
+            return
+
+        if disapprvpm.reply_to_msg_id:
+            reply = await disapprvpm.get_reply_message()
+            replied_user = await bot(GetFullUserRequest(reply.from_id))
+            aname = replied_user.user.id
+            name0 = str(replied_user.user.first_name)
+            dissprove(replied_user.user.id)
+        else:
+            dissprove(disapprvpm.chat_id)
+            aname = await bot.get_entity(disapprvpm.chat_id)
+            name0 = str(aname.first_name)
+
+        await disapprvpm.edit(
+            f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`"
+            )
+
+        if LOGGER:
+            await bot.send_message(
+                LOGGER_GROUP,
+                f"[{name0}](tg://user?id={disapprvpm.chat_id})"
+                " was disapproved to PM you.",
             )
 
 
