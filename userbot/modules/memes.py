@@ -146,11 +146,6 @@ async def zal(zgfy):
         await zgfy.edit(zalgofied_text)
 
 
-@bot.on(events.NewMessage(outgoing=True, pattern="^hi$"))
-@bot.on(events.MessageEdited(outgoing=True, pattern="^hi$"))
-async def hoi(ha):
-    await ha.edit("Hoi!😄")
-
 
 @bot.on(events.NewMessage(outgoing=True, pattern="^.owo (.*)"))
 @bot.on(events.MessageEdited(outgoing=True, pattern="^.owo (.*)"))

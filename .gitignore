@@ -8,3 +8,8 @@ userbot/__pycache__/*
 userbot/modules/__pycache__/*
 userbot/modules/rextester/__pycache__/*
 userbot/modules/sql_helper/__pycache__/*
+userbot/modules/sql_helper/__pycache__/__init__.cpython-36.pyc/*
+userbot/modules/sql_helper/__pycache__/filter_sql.cpython-36.pyc/*
+userbot/modules/sql_helper/__pycache__/notes_sql.cpython-36.pyc/*
+userbot/modules/sql_helper/__pycache__/pm_permit_sql.cpython-36.pyc/*
+userbot/modules/sql_helper/__pycache__/spam_mute_sql.cpython-36.pyc/*
